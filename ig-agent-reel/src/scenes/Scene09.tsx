@@ -18,13 +18,13 @@ export const Scene09 = ({ t }: { t: number }) => (
       const f = easeOut(seg(t, t0 + q.fill, t0 + q.fill + 0.3));
       return (
         <div key={k} style={{
-          position: 'absolute', left: 70, width: 940, top: 50 + i * 255, height: 220, boxSizing: 'border-box',
+          position: 'absolute', left: 70, width: 940, top: 330 + i * 420, height: 360, boxSizing: 'border-box',
           background: '#fff', borderRadius: 28, boxShadow: '0 10px 30px rgba(27,27,27,.08)', display: 'flex', alignItems: 'center', padding: '0 50px',
           opacity: e, transform: `translateY(${(1 - e) * 40}px) scale(${0.9 + 0.1 * e})`,
         }}>
-          <div style={{ width: 300, fontSize: 70, fontWeight: 800, letterSpacing: -1 }}>{k}</div>
+          <div style={{ width: 330, fontSize: 78, fontWeight: 800, letterSpacing: -1 }}>{k}</div>
           <div style={{ fontSize: 56, color: C.orange, fontWeight: 800, marginRight: 36 }}>→</div>
-          <div style={{ fontSize: 44, fontWeight: 600, opacity: f, transform: `translateX(${(1 - f) * 20}px)` }}>{v}</div>
+          <div style={{ fontSize: 50, fontWeight: 600, opacity: f, transform: `translateX(${(1 - f) * 20}px)` }}>{v}</div>
         </div>
       );
     })}

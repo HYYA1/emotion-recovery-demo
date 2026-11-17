@@ -19,7 +19,7 @@ export const Scene17 = ({ t }: { t: number }) => {
   const typing = typed('노트', t, q.type, 6);
   return (
     <Stage bg={C.cream}>
-      <div style={{ ...pop(t, q.card, 0.2), position: 'absolute', left: 110, top: 40, width: 860, height: 770, background: '#fff', borderRadius: 30, boxShadow: '0 12px 40px rgba(27,27,27,.10)', fontFamily: FONT, padding: '36px 46px', boxSizing: 'border-box' }}>
+      <div style={{ ...pop(t, q.card, 0.2), position: 'absolute', left: 110, top: 420, width: 860, height: 900, background: '#fff', borderRadius: 30, boxShadow: '0 12px 40px rgba(27,27,27,.10)', fontFamily: FONT, padding: '36px 46px', boxSizing: 'border-box' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 22, fontSize: 30, fontWeight: 800, color: C.orange }}>
           <span style={{ width: 44, height: 44, borderRadius: 22, background: C.orange, color: '#fff', fontSize: 26, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>1</span>팔로우
         </div>

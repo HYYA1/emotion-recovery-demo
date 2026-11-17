@@ -24,13 +24,13 @@ export const Scene08 = ({ t }: { t: number }) => (
         {t >= q.loaded && <Loaded name="ig-plan" style={{ ...pop(t, q.loaded, 0.15), marginTop: 18 }} />}
         {t >= q.spin && t < q.result && <Thinking t={t} style={{ marginTop: 16 }} />}
         {t >= q.result && (
-          <div style={{ marginTop: 12 }}>
-            <div style={{ ...pop(t, q.result, 0.2), fontSize: 36, fontWeight: 800, marginBottom: 10 }}>이번 주 인스타그램</div>
+          <div style={{ marginTop: 30 }}>
+            <div style={{ ...pop(t, q.result, 0.2), fontSize: 44, fontWeight: 800, marginBottom: 20 }}>이번 주 인스타그램</div>
             <div style={{ ...pop(t, q.result + 0.1, 0.2), display: 'flex', fontSize: 22, fontWeight: 700, color: C.grey, padding: '0 16px 6px', borderBottom: `2px solid ${C.line}` }}>
               <div style={{ width: 90 }}>요일</div><div style={{ flex: 1 }}>게시물</div><div style={{ width: 90, textAlign: 'right' }}>시간</div>
             </div>
             {ROWS.map(([d, kind, what, time], i) => (
-              <div key={d} style={{ ...pop(t, q.rows + i * q.rowGap, 0.22), display: 'flex', alignItems: 'center', height: 58, padding: '0 16px', borderBottom: `1px solid ${C.line}`, fontSize: 28 }}>
+              <div key={d} style={{ ...pop(t, q.rows + i * q.rowGap, 0.22), display: 'flex', alignItems: 'center', height: 110, padding: '0 16px', borderBottom: `1px solid ${C.line}`, fontSize: 32 }}>
                 <div style={{ width: 90, fontWeight: 800, color: C.orange }}>{d}</div>
                 <div style={{ flex: 1, display: 'flex', alignItems: 'center', gap: 14 }}>
                   <span style={{ fontSize: 22, fontWeight: 700, background: TAG[kind], borderRadius: 8, padding: '3px 10px' }}>{kind}</span>

@@ -20,7 +20,7 @@ export const Scene15 = ({ t }: { t: number }) => (
       const c = back(seg(t, tc, tc + 0.3), 2);
       const ink = easeOut(seg(t, tc, tc + 0.3));
       return (
-        <div key={file} style={{ ...pop(t, q.cards + i * 0.15), position: 'absolute', left: 110, width: 860, top: 140 + i * 290, height: 240, boxSizing: 'border-box', background: '#fff', borderRadius: 30, boxShadow: '0 10px 30px rgba(27,27,27,.08)', display: 'flex', alignItems: 'center', padding: '0 54px', gap: 40 }}>
+        <div key={file} style={{ ...pop(t, q.cards + i * 0.15), position: 'absolute', left: 110, width: 860, top: 560 + i * 340, height: 280, boxSizing: 'border-box', background: '#fff', borderRadius: 30, boxShadow: '0 10px 30px rgba(27,27,27,.08)', display: 'flex', alignItems: 'center', padding: '0 54px', gap: 40 }}>
           <div style={{ position: 'relative', width: 96, height: 96, flexShrink: 0 }}>
             <div style={{ position: 'absolute', inset: 0, borderRadius: 48, border: '6px solid #D9D5CC', boxSizing: 'border-box', opacity: 1 - ink }} />
             <div style={{ position: 'absolute', inset: 0, borderRadius: 48, background: C.mint, transform: `scale(${c})`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

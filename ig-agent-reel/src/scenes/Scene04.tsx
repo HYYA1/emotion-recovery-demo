@@ -31,8 +31,8 @@ export const Scene04 = ({ t }: { t: number }) => {
               <div key={s} style={{ fontSize: 28, fontWeight: s === 'Skills' ? 700 : 500, padding: '12px 16px', borderRadius: 12, background: s === 'Skills' ? '#F1EFEA' : undefined, color: s === 'Skills' ? C.text : '#77736B', marginBottom: 4 }}>{s}</div>
             ))}
           </div>
-          <div style={{ flex: 1, padding: '30px 34px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 16 }}>
+          <div style={{ flex: 1, padding: '40px 34px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 30 }}>
               <div style={{ fontSize: 36, fontWeight: 800 }}>instagram-agent</div>
               <div style={{ fontSize: 26, fontWeight: 700, background: '#F1EFEA', borderRadius: 12, padding: '2px 12px', color: '#5E5A52' }}>11</div>
               <div style={{ opacity: Math.min(1, free * 2), transform: `scale(${free})`, fontSize: 28, fontWeight: 800, color: '#fff', background: C.orange, borderRadius: 999, padding: '4px 20px', boxShadow: '0 4px 14px rgba(255,122,26,.4)' }}>무료</div>
@@ -41,10 +41,10 @@ export const Scene04 = ({ t }: { t: number }) => {
               const r0 = q.rows + i * q.rowGap, d0 = q.desc + i * q.descGap;
               const de = easeOut(seg(t, d0, d0 + 0.25));
               return (
-                <div key={name} style={{ ...pop(t, r0, 0.25), display: 'flex', alignItems: 'center', height: 55, borderBottom: i < SKILLS.length - 1 ? `1px solid ${C.line}` : undefined }}>
+                <div key={name} style={{ ...pop(t, r0, 0.25), display: 'flex', alignItems: 'center', height: 100, borderBottom: i < SKILLS.length - 1 ? `1px solid ${C.line}` : undefined }}>
                   <div style={{ width: 14, height: 14, borderRadius: 4, background: i % 2 ? C.mint : C.orange, marginRight: 16 }} />
-                  <div style={{ width: 210, fontSize: 28, fontWeight: 600 }}>{name}</div>
-                  <div style={{ fontSize: 25, color: C.grey, opacity: de, transform: `translateX(${(1 - de) * 16}px)` }}>{desc}</div>
+                  <div style={{ width: 220, fontSize: 32, fontWeight: 600 }}>{name}</div>
+                  <div style={{ fontSize: 28, color: C.grey, opacity: de, transform: `translateX(${(1 - de) * 16}px)` }}>{desc}</div>
                 </div>
               );
             })}

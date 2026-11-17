@@ -28,7 +28,7 @@ export const Scene12 = ({ t }: { t: number }) => (
               </div>
             </div>
             {BULLETS.map(([k, v], i) => (
-              <div key={k} style={{ ...pop(t, q.bullet + i * q.bulletGap, 0.22), display: 'flex', alignItems: 'center', gap: 18, marginTop: 24, padding: '20px 24px', borderRadius: 18, background: '#FAF8F4', border: `1px solid ${C.line}` }}>
+              <div key={k} style={{ ...pop(t, q.bullet + i * q.bulletGap, 0.22), display: 'flex', alignItems: 'center', gap: 18, marginTop: 34, padding: '34px 26px', borderRadius: 18, background: '#FAF8F4', border: `1px solid ${C.line}` }}>
                 <div style={{ width: 12, height: 12, borderRadius: 6, background: C.orange, flexShrink: 0 }} />
                 <div style={{ fontSize: 30, fontWeight: 800, width: 150, flexShrink: 0 }}>{k}</div>
                 <div style={{ fontSize: 30, fontWeight: 500 }}>{v}</div>

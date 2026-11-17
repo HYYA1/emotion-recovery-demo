@@ -9,7 +9,7 @@ export const Scene02 = ({ t }: { t: number }) => {
   const on = easeOut(seg(t, q.toggle, q.toggle + 0.22));
   return (
     <Stage bg={C.green}>
-      <div style={{ ...pop(t, q.card), position: 'absolute', left: 110, top: 150, width: 860, borderRadius: 32, background: '#17392F', border: '2px solid #24493E', boxShadow: '0 20px 50px rgba(0,0,0,.35)', color: '#fff' }}>
+      <div style={{ ...pop(t, q.card), position: 'absolute', left: 110, top: 620, width: 860, borderRadius: 32, background: '#17392F', border: '2px solid #24493E', boxShadow: '0 20px 50px rgba(0,0,0,.35)', color: '#fff' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 32, padding: '44px 48px' }}>
           <Avatar size={140} emoji="☕" from="#FFC38A" to="#FF7A1A" />
           <div>

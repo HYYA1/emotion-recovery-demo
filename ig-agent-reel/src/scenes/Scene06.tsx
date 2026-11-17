@@ -27,7 +27,7 @@ export const Scene06 = ({ t }: { t: number }) => {
               <Avatar size={56} emoji="🥛" from="#D9E8FF" to="#8FB4F2" />
               <div style={{ fontSize: 27, fontWeight: 700 }}>latte.lab</div>
             </div>
-            <Photo emoji="☕" from="#F3D3A8" to="#9C6B45" size={150} style={{ height: 420, borderRadius: 18 }} />
+            <Photo emoji="☕" from="#F3D3A8" to="#9C6B45" size={150} style={{ height: 760, borderRadius: 18 }} />
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: 20, fontSize: 30, fontWeight: 700 }}>
               <span style={{ color: '#FF3B5C', fontSize: 34 }}>♥</span> 2,149
             </div>

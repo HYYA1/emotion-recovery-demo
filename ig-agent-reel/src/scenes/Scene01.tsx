@@ -27,7 +27,7 @@ export const Scene01 = ({ t }: { t: number }) => {
   const shake = t > q.title + 0.2 && t < q.title + 0.5 ? Math.sin((t - q.title) * 90) * 8 * (1 - seg(t, q.title + 0.2, q.title + 0.5)) : 0;
   return (
     <Stage bg={C.cream}>
-      <div style={{ position: 'absolute', left: 0, right: 0, top: 70, display: 'flex', justifyContent: 'center', gap: 70, transform: `translateX(${shake}px)` }}>
+      <div style={{ position: 'absolute', left: 0, right: 0, top: 470, display: 'flex', justifyContent: 'center', gap: 70, transform: `translateX(${shake}px)` }}>
         <div style={pop(t, q.icons)}>
           <div style={{ width: 220, height: 220, borderRadius: 60, background: C.orange, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 14px 30px rgba(255,122,26,.30)' }}>
             <Spark size={130} color="#fff" />
@@ -41,7 +41,7 @@ export const Scene01 = ({ t }: { t: number }) => {
           </svg>
         </div>
       </div>
-      <div style={{ position: 'absolute', left: 0, right: 0, top: 360, textAlign: 'center', fontFamily: TITLE_FONT, fontSize: 330, lineHeight: 1.1, color: C.orange, opacity: tp > 0 ? Math.min(1, tp * 3) : 0, transform: `scale(${ts}) translateX(${shake}px)` }}>
+      <div style={{ position: 'absolute', left: 0, right: 0, top: 790, textAlign: 'center', fontFamily: TITLE_FONT, fontSize: 330, lineHeight: 1.1, color: C.orange, opacity: tp > 0 ? Math.min(1, tp * 3) : 0, transform: `scale(${ts}) translateX(${shake}px)` }}>
         끝났다
       </div>
     </Stage>

@@ -17,7 +17,7 @@ export const Spark = ({ size = 40, color = C.orange, rotate = 0, style }: { size
 // Claude 데스크톱 앱 느낌의 창: 왼쪽 얇은 아이콘 사이드바 + 흰 본문
 export const AppWindow = ({ children, style }: { children: ReactNode; style?: CSSProperties }) => (
   <div style={{
-    position: 'absolute', left: 40, top: 32, width: 1000, height: 780, background: '#fff',
+    position: 'absolute', left: 40, top: 190, width: 1000, height: 1400, background: '#fff',
     borderRadius: 24, boxShadow: '0 12px 40px rgba(27,27,27,.10), 0 2px 6px rgba(27,27,27,.05)',
     overflow: 'hidden', display: 'flex', fontFamily: FONT, color: C.text, ...style,
   }}>

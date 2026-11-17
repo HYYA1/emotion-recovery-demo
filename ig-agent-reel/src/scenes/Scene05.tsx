@@ -23,9 +23,9 @@ export const Scene05 = ({ t }: { t: number }) => (
             </div>
             <div style={{ ...pop(t, q.result + 0.1, 0.2), fontSize: 26, color: C.grey, marginTop: 12 }}>공식 7/21: 실수 지적형</div>
             {LINES.map((s, i) => (
-              <div key={i} style={{ ...pop(t, q.result + 0.2 + i * q.lineGap, 0.2), display: 'flex', alignItems: 'center', gap: 20, marginTop: 22, padding: '22px 26px', borderRadius: 18, background: '#FAF8F4', border: `1px solid ${C.line}` }}>
+              <div key={i} style={{ ...pop(t, q.result + 0.2 + i * q.lineGap, 0.2), display: 'flex', alignItems: 'center', gap: 20, marginTop: 34, padding: '34px 28px', borderRadius: 18, background: '#FAF8F4', border: `1px solid ${C.line}` }}>
                 <div style={{ width: 46, height: 46, borderRadius: 23, background: C.orange, color: '#fff', fontWeight: 800, fontSize: 26, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{i + 1}</div>
-                <div style={{ fontSize: 36, fontWeight: 600 }}>{s}</div>
+                <div style={{ fontSize: 38, fontWeight: 600 }}>{s}</div>
               </div>
             ))}
           </div>

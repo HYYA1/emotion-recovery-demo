@@ -15,7 +15,7 @@ export const Scene07 = ({ t }: { t: number }) => {
   const lines = NEW.map(s => { const k = Math.min(Array.from(s).length, left); left -= k; return Array.from(s).slice(0, k).join(''); });
   return (
     <Stage bg={C.cream}>
-      <div style={{ ...pop(t, q.card, 0.2), position: 'absolute', left: 190, top: 32, width: 700, height: 780, background: '#fff', borderRadius: 28, boxShadow: '0 12px 40px rgba(27,27,27,.10)', fontFamily: FONT, padding: '34px 40px', boxSizing: 'border-box' }}>
+      <div style={{ ...pop(t, q.card, 0.2), position: 'absolute', left: 140, top: 330, width: 800, background: '#fff', borderRadius: 28, boxShadow: '0 12px 40px rgba(27,27,27,.10)', fontFamily: FONT, padding: '70px 56px', boxSizing: 'border-box' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 36 }}>
           <Avatar size={140} emoji="☕" from="#FFC38A" to="#FF7A1A" ring />
           <div style={{ display: 'flex', gap: 34, textAlign: 'center' }}>
@@ -33,9 +33,9 @@ export const Scene07 = ({ t }: { t: number }) => {
           </div>
           {rewriting && <div style={{ position: 'absolute', right: 10, top: 8, fontSize: 20, fontWeight: 700, color: '#2E9C72', background: '#E4F7EF', borderRadius: 999, padding: '4px 12px' }}>수정됨</div>}
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8, marginTop: 22 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 8, marginTop: 50 }}>
           {[['☕', '#F3D3A8', '#9C6B45'], ['🥐', '#FCE3B0', '#D9963F'], ['🍰', '#FFE0E6', '#F2A7B5']].map(([e, a, b], i) => (
-            <Photo key={i} emoji={e} from={a} to={b} size={84} style={{ ...pop(t, q.grid + i * 0.08, 0.2), height: 200, borderRadius: 10 }} />
+            <Photo key={i} emoji={e} from={a} to={b} size={84} style={{ ...pop(t, q.grid + i * 0.08, 0.2), height: 300, borderRadius: 12 }} />
           ))}
         </div>
       </div>

@@ -2,7 +2,7 @@
 // start/end: 장면의 전체 시간. cue: 장면 안의 세부 타이밍(장면 시작 기준, 초).
 export const FPS = 30;
 export const W = 1080;
-export const H = 960;
+export const H = 1920;
 export const DUR = 50;
 
 export const C = {
