@@ -3,3 +3,7 @@ dist/
 out/.*
 out/*.lock
 out/build.log
+out/video.mp4
+out/mix.wav
+voice/.venv/
+voice/gen.log
