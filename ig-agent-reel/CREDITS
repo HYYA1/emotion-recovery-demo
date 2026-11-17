@@ -1,0 +1,15 @@
+인스타그램 에이전트 릴스 (상단 영상) — 사용한 외부 자료와 라이선스
+
+글꼴
+  Black Han Sans — Zess Type, SIL Open Font License 1.1 (fonts/BlackHanSans-OFL.txt)
+    https://github.com/google/fonts/tree/main/ofl/blackhansans
+  Pretendard 1.3.9 — Kil Hyung-jin (orioncactus), SIL Open Font License 1.1
+    https://github.com/orioncactus/pretendard
+  Noto Color Emoji — Google, SIL Open Font License 1.1 (렌더링한 컴퓨터의 시스템 글꼴, 파일은 포함하지 않음)
+
+코드 라이브러리
+  React 18.3.1 (MIT), esbuild 0.24.2 (MIT)
+  렌더링 도구: Lemo-Opuscar core/render (MIT) — https://github.com/lemomo-ai/lemo-opuscar
+
+이미지·사진: 없음 (모든 그림은 코드로 직접 그림). 소리: 없음 (무음 영상).
+화면 속 앱 아이콘과 UI는 실제 로고·화면이 아니라 단순한 도형으로 만든 목업입니다.
