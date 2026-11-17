@@ -7,3 +7,4 @@ out/video.mp4
 out/mix.wav
 voice/.venv/
 voice/gen.log
+out/music_only.wav

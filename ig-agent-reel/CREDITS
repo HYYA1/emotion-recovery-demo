@@ -12,14 +12,13 @@
   렌더링 도구: Lemo-Opuscar core/render (MIT) — https://github.com/lemomo-ai/lemo-opuscar
 
 음성 (내레이션)
-  Supertonic-2 (Supertone Inc.) 한국어 음성 합성, 목소리 F1 — 모델 라이선스 OpenRAIL-M
-    https://huggingface.co/Supertone/supertonic-2  (이 컴퓨터에서 직접 생성. 라이선스의 사용 제한 조항을 확인하세요)
+  Supertonic-3 (Supertone Inc.) 한국어 음성 합성, 목소리 F2 — 모델 라이선스 OpenRAIL-M
+    https://huggingface.co/Supertone/supertonic-3  (이 컴퓨터에서 직접 생성. 라이선스의 사용 제한 조항을 확인하세요)
   음성 확인용 받아쓰기: faster-whisper (SYSTRAN, MIT) + OpenAI Whisper "small" 모델 (MIT)
 
-배경음악: 이 영상을 위해 직접 작곡한 반주 (mix.py). 사용한 악기 샘플:
+배경음악: 이 영상을 위해 직접 작곡한 릴스용 트랩팝 (mix.py). 808 베이스·패드·플럭·효과음은 코드로 합성.
   Drums: "MuldjordKit" by Lars Muldjord (drumgizmo.org), FreePats version, licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
-  Samples (CC0): FreePats project (freepats.zenvoid.org) — 우쿨렐레, 일렉 베이스
-  Samples (CC0): Versilian Community Sample Library (Versilian Studios) — 마림바, 글로켄슈필, 박수
+  Samples (CC0): Versilian Community Sample Library (Versilian Studios) — 박수
 
 이미지·사진: 없음 (모든 그림은 코드로 직접 그림).
 화면 속 앱 아이콘과 UI는 실제 로고·화면이 아니라 단순한 도형으로 만든 목업입니다.
