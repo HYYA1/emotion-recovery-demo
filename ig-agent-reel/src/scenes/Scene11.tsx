@@ -29,7 +29,7 @@ export const Scene11 = ({ t }: { t: number }) => {
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16, marginTop: 20 }}>
             {REELS.map(([badge, title, e, a, b], i) => (
-              <div key={i} style={{ ...pop(t, q.tiles + i * q.tileGap, 0.22), position: 'relative', height: 560, borderRadius: 18, overflow: 'hidden', boxShadow: i === 0 && hover ? `0 0 0 5px ${C.orange}` : 'none' }}>
+              <div key={i} style={{ ...pop(t, q.tiles + i * q.tileGap, 0.22), position: 'relative', height: 530, borderRadius: 18, overflow: 'hidden', boxShadow: i === 0 && hover ? `0 0 0 5px ${C.orange}` : 'none' }}>
                 <Photo emoji={e} from={a} to={b} size={130} style={{ position: 'absolute', inset: 0, paddingBottom: 50 }} />
                 <div style={{ position: 'absolute', left: 12, top: 12, fontSize: 22, fontWeight: 800, color: '#fff', background: i === 0 ? C.orange : 'rgba(27,27,27,.75)', borderRadius: 999, padding: '4px 12px' }}>▶ {badge}</div>
                 <div style={{ position: 'absolute', left: 0, right: 0, bottom: 0, padding: '30px 14px 14px', background: 'linear-gradient(transparent, rgba(0,0,0,.65))', color: '#fff', fontSize: 26, fontWeight: 700, lineHeight: 1.3 }}>{title}</div>

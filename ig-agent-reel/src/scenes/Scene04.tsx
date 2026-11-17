@@ -41,7 +41,7 @@ export const Scene04 = ({ t }: { t: number }) => {
               const r0 = q.rows + i * q.rowGap, d0 = q.desc + i * q.descGap;
               const de = easeOut(seg(t, d0, d0 + 0.25));
               return (
-                <div key={name} style={{ ...pop(t, r0, 0.25), display: 'flex', alignItems: 'center', height: 100, borderBottom: i < SKILLS.length - 1 ? `1px solid ${C.line}` : undefined }}>
+                <div key={name} style={{ ...pop(t, r0, 0.25), display: 'flex', alignItems: 'center', height: 92, borderBottom: i < SKILLS.length - 1 ? `1px solid ${C.line}` : undefined }}>
                   <div style={{ width: 14, height: 14, borderRadius: 4, background: i % 2 ? C.mint : C.orange, marginRight: 16 }} />
                   <div style={{ width: 220, fontSize: 32, fontWeight: 600 }}>{name}</div>
                   <div style={{ fontSize: 28, color: C.grey, opacity: de, transform: `translateX(${(1 - de) * 16}px)` }}>{desc}</div>

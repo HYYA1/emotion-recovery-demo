@@ -17,7 +17,7 @@ export const Spark = ({ size = 40, color = C.orange, rotate = 0, style }: { size
 // Claude 데스크톱 앱 느낌의 창: 왼쪽 얇은 아이콘 사이드바 + 흰 본문
 export const AppWindow = ({ children, style }: { children: ReactNode; style?: CSSProperties }) => (
   <div style={{
-    position: 'absolute', left: 40, top: 190, width: 1000, height: 1400, background: '#fff',
+    position: 'absolute', left: 40, top: 190, width: 1000, height: 1250, background: '#fff',
     borderRadius: 24, boxShadow: '0 12px 40px rgba(27,27,27,.10), 0 2px 6px rgba(27,27,27,.05)',
     overflow: 'hidden', display: 'flex', fontFamily: FONT, color: C.text, ...style,
   }}>
@@ -101,7 +101,7 @@ export const Stage = ({ bg, children }: { bg: string; children: ReactNode }) => 
 export const CaptionBox = ({ text, t, t0 }: { text: string; t: number; t0: number }) => {
   const e = easeOut(seg(t, t0, t0 + 0.12));
   return (
-    <div style={{ position: 'absolute', left: 0, right: 0, bottom: 40, display: 'flex', justifyContent: 'center', pointerEvents: 'none', zIndex: 50 }}>
+    <div style={{ position: 'absolute', left: 0, right: 0, bottom: 360, display: 'flex', justifyContent: 'center', pointerEvents: 'none', zIndex: 50 }}>
       <div style={{
         fontFamily: FONT, fontWeight: 700, fontSize: 44, lineHeight: 1.25, color: '#fff', background: C.green,
         padding: '10px 20px', borderRadius: 16, boxShadow: '0 0 0 2px rgba(255,255,255,.14), 0 6px 18px rgba(0,0,0,.18)',
