@@ -11,3 +11,4 @@ out/srt_cues.json
 out/sheet_*.jpg
 out/sheet.jpg
 out/stills/
+voice/.venv
