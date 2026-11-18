@@ -113,7 +113,7 @@ export const S04 = ({ t }: { t: number }) => {
           </div>
         ) : <StoreScreen t={t} />}
       </Phone>
-      <Ring t={t} t0={at('s04_06', .2)} x={40 + 16 + 22 + 114} y={16 + 46 + 18 + 14 + 66 + 34 + 46} w={110} h={40} until={at('s04_08')} />
+      <Ring t={t} t0={at('s04_06', .2)} x={40 + 16 + 22 + 114} y={16 + 46 + 18 + 14 + 66 + 34 + 46 + 42} w={96} h={34} until={at('s04_08')} />
       <Callout style={{ ...rise(t, at('s04_03', .2)), left: 560, top: 40, width: 560 }}>
         안드로이드 → <span style={{ color: C.green }}>플레이 스토어</span><br />아이폰 → <span style={{ color: C.blue }}>앱 스토어</span>
       </Callout>
