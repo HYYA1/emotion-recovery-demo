@@ -1,0 +1,11 @@
+node_modules/
+dist/
+voice/.venv/
+out/.*
+out/*.lock
+out/build.log
+out/video.mp4
+out/mix.wav
+out/stills/
+out/srt_cues.json
+out/sheet_*.jpg
