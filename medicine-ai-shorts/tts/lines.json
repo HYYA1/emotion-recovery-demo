@@ -1,63 +1,89 @@
 [
  {
   "id": "v01",
-  "text": "약 봉투 글씨, 보이세요?"
+  "text": "약 봉투 글씨, 보이세요?",
+  "voice": "ko-KR-HyunsuMultilingualNeural",
+  "rate": "+8%"
  },
  {
   "id": "v02",
-  "text": "이제 돋보기 찾지 마세요. 휴대폰이 읽어 줘요!"
+  "text": "이제 돋보기 필요 없어요. 휴대폰이 대신 읽어 줘요!",
+  "voice": "ko-KR-HyunsuMultilingualNeural",
+  "rate": "+4%"
  },
  {
   "id": "v03",
-  "text": "약 봉투가 서너 개면, 아침 약인지 저녁 약인지 헷갈리죠."
+  "text": "약 봉투가 여러 개면, 아침 약인지 저녁 약인지 헷갈리잖아요.",
+  "voice": "ko-KR-HyunsuMultilingualNeural",
+  "rate": "+9%"
  },
  {
   "id": "v04",
-  "text": "자식한테 매번 묻기도 미안하고요."
+  "text": "자식한테 매번 묻기도 미안하고요.",
+  "voice": "ko-KR-HyunsuMultilingualNeural",
+  "rate": "+7%"
  },
  {
   "id": "v05",
-  "text": "이제 글자 칠 필요 없이, 말로 물어보세요."
+  "text": "이제는요, 글자 칠 필요 없이 말로 물어보세요.",
+  "voice": "ko-KR-HyunsuMultilingualNeural",
+  "rate": "+4%"
  },
  {
   "id": "v06",
-  "text": "먼저 챗GPT나 제미나이 같은 AI 앱을 여세요.",
-  "say": "먼저 챗지피티나 제미나이 같은 에이아이 앱을 여세요.",
-  "asr": "먼저 체치피티나 재미나이 같은 AI 앱을 여세요."
+  "text": "먼저 챗GPT나 제미나이 같은 AI 앱을 열어 주세요.",
+  "voice": "ko-KR-HyunsuMultilingualNeural",
+  "rate": "+10%",
+  "say": "먼저 챗지피티나 제미나이 같은 에이아이 앱을 열어 주세요.",
+  "asr": "먼저 체치피티나 재미나이 같은 AI 앱을 열어주세요."
  },
  {
   "id": "v07",
-  "text": "카메라를 누르고, 약 봉투를 꽉 차게 대고, 찰칵!"
+  "text": "카메라 누르고, 약 봉투를 꽉 차게, 찰칵!",
+  "voice": "ko-KR-HyunsuMultilingualNeural",
+  "rate": "+4%"
  },
  {
   "id": "v08",
-  "text": "마이크를 누르고, 말하듯이 물어보세요."
+  "text": "그다음 마이크 누르고, 말하듯이 물어보세요.",
+  "voice": "ko-KR-HyunsuMultilingualNeural",
+  "rate": "+4%"
  },
  {
   "id": "q01",
   "text": "이 약 어떻게 먹어?",
-  "voice": "ko-KR-InJoonNeural",
+  "voice": "ko-KR-SunHiNeural",
   "rate": "-12%",
-  "pitch": "-4Hz"
+  "pitch": "-14Hz"
  },
  {
   "id": "v09",
-  "text": "그러면 크고 쉬운 말로 알려 줘요."
+  "text": "그러면 이렇게 크고 쉬운 말로 딱 알려 줘요.",
+  "voice": "ko-KR-HyunsuMultilingualNeural",
+  "rate": "+8%"
  },
  {
   "id": "v10",
-  "text": "궁금한 건 또 물어보세요. 몇 번을 물어도 괜찮아요."
+  "text": "궁금한 건 또 물어보세요. 몇 번을 물어봐도 괜찮아요.",
+  "voice": "ko-KR-HyunsuMultilingualNeural",
+  "rate": "+4%"
  },
  {
   "id": "v11",
-  "text": "앱 열고, 찰칵, 마이크. 끝! 쉽죠?"
+  "text": "앱을 열고, 찰칵 찍고, 마이크로 물어보면 끝! 진짜 쉽죠?",
+  "voice": "ko-KR-HyunsuMultilingualNeural",
+  "rate": "+4%"
  },
  {
   "id": "v12",
-  "text": "내일 병원 가시면 꼭 써 보세요. 충분히 하실 수 있어요!"
+  "text": "내일 병원 가시면 꼭 한번 써 보세요. 충분히 하실 수 있어요!",
+  "voice": "ko-KR-HyunsuMultilingualNeural",
+  "rate": "+4%"
  },
  {
   "id": "v13",
-  "text": "구독하시면 꿀팁 계속 알려 드려요. 부모님께도 꼭 보내 드리세요!"
+  "text": "구독하시면 이런 꿀팁 계속 알려 드릴게요. 부모님께도 꼭 보내 드리세요!",
+  "voice": "ko-KR-HyunsuMultilingualNeural",
+  "rate": "+4%"
  }
 ]

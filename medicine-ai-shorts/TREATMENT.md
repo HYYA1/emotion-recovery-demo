@@ -1,6 +1,6 @@
 # 약 봉투, AI한테 물어보세요 — Treatment
 
-Style: Mascot Screencast (`living-screencast`). 60 s, vertical 1080×1920, 30 fps. Korean narration (edge-tts ko-KR-SunHiNeural, −5 %), the senior's question in a second voice (ko-KR-InJoonNeural). Burned-in caption pills + `subtitles_ko.srt`.
+Style: Mascot Screencast (`living-screencast`). 60 s, vertical 1080×1920, 30 fps. Korean narration (edge-tts ko-KR-HyunsuMultilingualNeural, the newest and most natural Korean voice, +4–10 % per line so each fits its scene), the senior's question in a lowered SunHi voice (a mother asking). Burned-in caption pills + `subtitles_ko.srt`.
 
 Source: the script and direction guide written earlier in this conversation. Adapted to the style: no hands or faces on screen. The **touch dot is the user**, and an original **pixel mascot is the AI**. The app is a generic "AI 도우미" chat app (no real logos or UI). ChatGPT and Gemini are named only in the narration, as examples.
 
@@ -43,27 +43,25 @@ A tiny-print medicine envelope that nobody can read becomes a big, plain answer 
 | 12 | 47.6–53.0 | lock screen + reminder "내일 병원" | push-in to the notification | tomorrow, use it |
 | 13 | 53.0–60.0 | end card: subscribe, share | tap subscribe; share; the mascot rides the message away | CTA |
 
-## 5. Beat sheet (VO start → end)
+## 5. Beat sheet
 
-v01 0.3–2.6 · v02 2.8–7.0 · v03 7.3–11.7 · v04 11.9–14.3 · v05 14.6–18.0 · v06 18.4–22.0 · v07 22.3–26.3 (shutter on "찰칵" ≈ 25.6) · v08 26.9–29.9 · q01 30.4–31.8 · (31.9–32.9 reading beat, music drops) · v09 33.2–35.6 · v10 36.4–41.2 · v11 41.8–47.4 · v12 47.8–52.7 · v13 53.2–58.7 · hold to 60.0.
+Voice slots are unchanged from version 1 (v01 0.3 · v02 2.8 · v03 7.3 · v04 11.9 · v05 14.6 · v06 18.4 · v07 22.3 · v08 26.9 · q01 30.4 · v09 33.2 · v10 36.4 · v11 41.8 · v12 47.8 · v13 53.2); every line was re-voiced conversationally and fitted to its slot. Visual beats hang on words looked up by their first letters (the shutter right after "찰칵", the four tile hops on 앱 / 찰칵 / 마이크 / 끝, the share sheet on "부모님께도").
 
-Section times differ slightly from the script (hook 0–7, problem 7–18, demo 18–41, closing 41–60) because the narration sets the timing.
+## 6. Cue map (version 2: shorts energy)
 
-## 6. Cue map
-
-100 BPM (beat 0.6 s). A hi-fi layer (vibraphone chords, nylon guitar, soft kick and shaker, synthesised upright-style bass) is the world; a chiptune square voice is the mascot (its pops, jumps and four "karaoke" notes in shot 11). Drums out under the problem (7–18), in at ① (18.2). Everything drops to room tone at 31.9 (the AI reading), and the answer lands with a vibraphone chord at 32.9. Music ducks ~10 dB under the voice.
+120 BPM in A minor (Am F C G), all synthesised: four-on-the-floor kick, claps on 2 and 4, offbeat hats, a pumping saw bass ducked by the kick, chord stabs on the offbeats. The mascot's square-wave lead plays a two-bar hook (E A C A E D C · D C A G A…), repeated so it sticks. Impact hits on 0.0, 18.2 (the drop into step ①), 32.9 (the answer) and 41.6 (the summary); risers into 18.2 and 41.6; clap fills before steps ② and ③. The problem section (7.2–18.2) is low-passed with half-time kicks and no lead; everything drops out while the AI reads (31.95–32.9). Music sits about 8 dB under the voice and ducks under every line. Camera punches (a 4.5 % zoom bump) on the hook words.
 
 ## 7. Sound design
 
 | Section | Bed | Foley | Music |
 |---|---|---|---|
-| Hook | room tone | pixel pop (mascot), magnifier toss | soft vibes |
-| Problem | room tone | gallery swish, "?" blip, call-screen hum | vibes + guitar, no drums |
-| ① ② ③ | room tone | taps, app-open swish, shutter, mic "bloop" on/off | full band |
-| Reading beat | room tone only | 8-bit steps along the rows | out |
-| ④ answer | room tone | chime on the answer, typing ticks | band returns |
-| Closing | room tone | tile hops (8-bit), notification chime, subscribe tap, send whoosh | band, final chord |
+| Hook | room tone | pixel pop (mascot), magnifier toss | full groove + lead hook from frame 1 |
+| Problem | room tone | gallery swish, "?" blip | filtered, half-time, no lead; riser into the drop |
+| ① ② ③ | room tone | taps, app-open swish, shutter (after the word), mic bloop on/off | full groove + hook, fills at chapter seams |
+| Reading beat | room tone only | 8-bit steps along the photo | out |
+| ④ answer | room tone | impact + chime on the answer | groove back |
+| Closing | room tone | karaoke hops (8-bit C E G C), notification chime, subscribe tap, send whoosh | full, final impact and held chord |
 
 ## 8. Text design
 
-Noto Sans KR (OFL), self-hosted and subset. UI type 40–64 px inside the phone (three times a normal phone UI, for older eyes). Caption pill at the bottom of the frame: 52 px bold, at most two lines of ~14 characters, frosted glass, never over the element being touched. Step pill at the top: "① 앱 열기 / ② 사진 찍기 / ③ 마이크로 묻기 / ④ 답 듣기". A fixed safety line from 33 s to 41 s: "※ 정확한 복용법은 약사·의사와 꼭 확인하세요". Envelope, patient and pharmacy names are fictional ("튼튼약국", "김○○ 님").
+Noto Sans KR (OFL), self-hosted and subset. UI type 40–64 px inside the phone (three times a normal phone UI, for older eyes). Version 2 palette: violet → hot-pink → orange wallpaper with white stripes and yellow rings, a hot-pink mascot, an electric-blue AI app, yellow highlights. Caption pill at the bottom: near-black, 60 px heavy white type with key words in yellow, a small pop-in, at most two lines, never over the element being touched. Step pill at the top (yellow, black outline): "① 앱 열기 / ② 사진 찍기 / ③ 마이크로 묻기 / ④ 답 듣기". A fixed safety line from 33 s to 41 s: "※ 정확한 복용법은 약사·의사와 꼭 확인하세요". Envelope, patient and pharmacy names are fictional ("튼튼약국", "김○○ 님").

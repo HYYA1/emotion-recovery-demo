@@ -10,14 +10,14 @@ NAME=medicine-ai-shorts
 PY="$LIB/.venv/bin/python"
 [ -f "$HERE/fonts/kr900.woff2" ] || sh "$HERE/fetch_fonts.sh"
 cd "$LIB"
-"$PY" core/audio/sampler.py --need "$HERE/mix.py"
-# voice: edge-tts through this machine's CA bundle, then a Whisper check of every line (any DIFF stops the build)
-"$PY" "$HERE/tts/run_tts.py" core/tts/tts_zh.py "$HERE/tts/lines.json" "$HERE/voices" --voice ko-KR-SunHiNeural --rate=-5%
+# (the score is synthesised; no instrument samples to fetch)
+# voice: edge-tts (through this machine's CA bundle), then a Whisper check of every line (any DIFF stops the build)
+"$PY" "$HERE/tts/fit.py" "$LIB"                     # Hyunsu Multilingual narration, each line fitted to its slot
 HF_HUB_DISABLE_XET=1 "$PY" core/tts/asr_check.py "$HERE/tts/lines.json" "$HERE/voices" --lang ko
 node core/render/events.mjs "$HERE" --size 1080x1920
 "$PY" "$HERE/mix.py" "$HERE/out/mix.wav"
 node core/render/readcheck.mjs "$HERE" --size 1080x1920
-node -e 'const s=require("fs").readFileSync(process.argv[1],"utf8");const m=s.match(/const CAPS = (\[[\s\S]*?\]\]);/);const C=eval(m[1]);require("fs").writeFileSync(process.argv[2],JSON.stringify(C.map(([a,b,t])=>({t0:a,t1:b,text:t}))))' "$HERE/main.js" "$HERE/out/cues.json"
+node -e 'const e=JSON.parse(require("fs").readFileSync(process.argv[1])).ev.filter(x=>x.type==="cap");require("fs").writeFileSync(process.argv[2],JSON.stringify(e.map(x=>({t0:x.t,t1:x.t1,text:x.text}))))' "$HERE/events.json" "$HERE/out/cues.json"
 "$PY" core/render/srt.py "$HERE/out/cues.json" "$HERE/subtitles_ko.srt"
 node core/render/video.mjs "$HERE" --fps 30 --workers ${WORKERS:-4} --size 1080x1920 --out "$HERE/out/video.mp4"
 sh core/render/mux.sh "$HERE/out/video.mp4" "$HERE/out/mix.wav" "$HERE/$NAME.mp4" 30 0

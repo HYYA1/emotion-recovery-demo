@@ -21,11 +21,13 @@ const F = (w, s) => `${w} ${s}px KR`;
 const VO = { v01: .3, v02: 2.8, v03: 7.3, v04: 11.9, v05: 14.6, v06: 18.4, v07: 22.3, v08: 26.9, q01: 30.4, v09: 33.2, v10: 36.4, v11: 41.8, v12: 47.8, v13: 53.2 };
 let WORDS = {};
 const Wd = (id, i) => VO[id] + Math.max(0, WORDS[id][i][1]);
-const SHUT = () => VO.v07 + WORDS.v07[7][2] - .02;   // the shutter fires right after "찰칵!" is said, so it never masks the word
+// a word by its first letters (the speech check's spelling), so timings survive re-voicing
+const Wf = (id, pre, end = false) => { const w = WORDS[id].find(x => x[0].startsWith(pre)); if (!w) throw new Error('no word ' + pre + ' in ' + id); return VO[id] + Math.max(0, end ? w[2] : w[1]); };
+const SHUT = () => Wf('v07', '찰', true) - .02;   // the shutter fires right after "찰칵!" is said, so it never masks the word
 
 // ---------- colours ----------
-const C = { ink: '#1F2328', grey: '#6B7280', line: '#E5E7EB', blue: '#3B6FE0', blueL: '#EAF0FF', bg: '#FFFFFF', bg2: '#F5F6F8',
-  mas: '#FF8A3D', masD: '#D96A22', eye: '#2A2622', cheek: '#FF6F7D', spark: '#FFD23F', red: '#E5483B', green: '#2FB36B' };
+const C = { ink: '#111318', grey: '#5B6170', line: '#E5E7EB', blue: '#2F6BFF', blueL: '#E8EFFF', bg: '#FFFFFF', bg2: '#F3F4F7',
+  mas: '#FF2D87', masD: '#C8106A', eye: '#1A1020', cheek: '#FFB3D1', spark: '#FFE100', red: '#FF2D2D', green: '#14C46A', yel: '#FFE100', hl: '#FFE100' };
 
 // ---------- phone (world = frame pixels at zoom 1) ----------
 const PH = { x: 150, y: 120, w: 780, h: 1440, r: 96 };
@@ -51,7 +53,9 @@ function track(keys, i, log) {
   };
 }
 const camX = track(CAMK, 1), camY = track(CAMK, 2), camZ = track(CAMK, 3, true);
-const cam = t => ({ x: camX(t), y: camY(t), z: camZ(t) });
+let BUMPS = [];
+const bump = t => { let k = 0; for (const b of BUMPS) if (t >= b && t < b + .35) k = Math.max(k, Math.exp(-(t - b) * 12) * (1 - Math.exp(-(t - b) * 60))); return 1 + .045 * k; };
+const cam = t => ({ x: camX(t), y: camY(t), z: camZ(t) * bump(t) });
 const toScr = (K, x, y) => [540 + (x - K.x) * K.z, 840 + (y - K.y) * K.z];
 const camSpeed = t => { const a = cam(t - 1 / 30), b = cam(t); return Math.hypot((b.x - a.x) * b.z, (b.y - a.y) * b.z) + Math.abs(Math.log(b.z / a.z)) * 1200; };
 
@@ -192,7 +196,7 @@ function buildMascot() {
   pz(33.5, 36.0, { eyes: 'happy', spark: true });
   j(38.35, 38.8, 420, 1482 - 0, { h: 120, scroll: true });
   pz(38.8, 40.2, { eyes: 'd', nod: true }); pz(40.24, 41.5, { eyes: 'happy', heart: true });
-  const tileY = [472, 702, 932, 1162], wt = [Wd('v11', 0), Wd('v11', 2), Wd('v11', 3), Wd('v11', 4)];
+  const tileY = [472, 702, 932, 1162], wt = [Wf('v11', '앱'), Wf('v11', '찰'), Wf('v11', '마이'), Wf('v11', '끝')];
   for (let i = 0; i < 4; i++) j(wt[i] - .36, wt[i], 760, tileY[i], { h: i ? 70 : 140 });
   pz(46.52, 47.6, { eyes: 'happy', arms: 'up', spark: true });
   j(47.85, 48.3, 780, 662, { h: 130 });
@@ -251,7 +255,7 @@ function renderMascot(c, t) {
   if (!M.st.ride) Object.assign(p, q, { sq: (q.sq ?? 0) + M.st.sq, legs: M.st.legs, flip: M.st.flip });
   if (p.legs === 'tuck' || p.legs === 'walkA' || p.legs === 'walkB') { if (!q.arms || p.legs === 'tuck') p.arms = M.st.legs === 'tuck' ? 'up' : (q.arms || 'down'); }
   // idle: breathe on the beat, blink irregularly, dance
-  const beat = .6, ph = (t % beat) / beat;
+  const beat = .5, ph = (t % beat) / beat;
   if (p.legs === 'stand' && !p.sq) p.sq = .04 * Math.max(0, Math.sin(ph * Math.PI * 2));
   if (p.dance && p.legs === 'stand') { p.sq = .14 * Math.abs(Math.sin(ph * Math.PI)); p.flip = Math.floor(t / beat) % 2 === 1; }
   if (p.nod && p.legs === 'stand') { const nn = Math.sin(t * 9); p.eyes = nn > 0 ? 'd' : 'n'; p.sq = .08 * Math.max(0, nn); }
@@ -325,22 +329,22 @@ function scrCall(c, t) {
 const APPS = [['전화', '#2FB36B', 'phone'], ['문자', '#F2B705', 'chat'], ['카메라', '#4B5563', 'cam'], ['사진', '#E8505B', 'photo'], ['시계', '#1F2937', 'clock'], ['설정', '#8B95A1', 'gear'], ['날씨', '#4FA3E3', 'spark'], ['AI 도우미', C.blue, 'spark'], ['캘린더', '#E8505B', 'cal']];
 const APPX = [58, 283, 508], APPY = [400, 680, 960];
 function scrHome(c, t) {
-  const g = c.createLinearGradient(0, 0, 0, SH); g.addColorStop(0, '#CFE3FF'); g.addColorStop(1, '#F5E7FF'); c.fillStyle = g; c.fillRect(0, 0, SW, SH); statusBar(c);
+  const g = c.createLinearGradient(0, 0, 0, SH); g.addColorStop(0, '#7FD3FF'); g.addColorStop(1, '#C59BFF'); c.fillStyle = g; c.fillRect(0, 0, SW, SH); statusBar(c);
   // the assistant widget
   const pulse = t > 16.18 && t < 18.2 ? .5 + .5 * Math.sin((t - 16.18) * 8) : 0;
   shadow(c, 24, 8, .12); rr(c, 40, 150, 656, 150, 75, 'rgba(255,255,255,.92)'); noShadow(c);
-  circ(c, 115, 225, 52 + pulse * 8, C.mas); glyph(c, 'mic', 115, 225, 70, '#fff');
+  circ(c, 115, 225, 52 + pulse * 8, C.blue); glyph(c, 'mic', 115, 225, 70, '#fff');
   txt(c, '말로 물어보세요', 190, 226, F(700, 46), C.ink);
   for (let i = 0; i < 9; i++) {
     const [name, col, gl] = APPS[i], x = APPX[i % 3], y = APPY[Math.floor(i / 3)];
     let s = 1;
-    if (name === 'AI 도우미' && t > Wd('v06', 4) - .1 && t < Wd('v06', 4) + .25) s = .9;
+    if (name === 'AI 도우미' && t > Wf('v06', 'AI') - .1 && t < Wf('v06', 'AI') + .25) s = .9;
     c.save(); c.translate(x + 85, y + 85); c.scale(s, s);
     shadow(c, 18, 6, .15); rr(c, -85, -85, 170, 170, 42, col); noShadow(c);
     glyph(c, gl, 0, 0, 100, '#fff');
     c.restore();
     txt(c, name, x + 85, y + 215, F(700, 36), C.ink, 'center');
-    if (name === 'AI 도우미' && t > 18.3 && t < 20.9) { c.save(); c.strokeStyle = C.mas; c.lineWidth = 8; c.globalAlpha = .5 + .5 * Math.sin(t * 8); c.beginPath(); c.roundRect(x - 12, y - 12, 194, 194, 50); c.stroke(); c.restore(); }
+    if (name === 'AI 도우미' && t > 18.3 && t < 20.9) { c.save(); c.strokeStyle = C.yel; c.lineWidth = 8; c.globalAlpha = .5 + .5 * Math.sin(t * 8); c.beginPath(); c.roundRect(x - 12, y - 12, 194, 194, 50); c.stroke(); c.restore(); }
   }
 }
 // E: the AI chat app
@@ -421,7 +425,7 @@ function scrApp(c, t) {
     c.fillStyle = '#0E0F12'; c.fillRect(0, 0, SW, SH);
     c.fillStyle = '#B98B5E'; c.fillRect(0, 140, SW, 1010);
     for (let i = 0; i < 6; i++) { c.fillStyle = `rgba(90,60,30,${.08 + .04 * (i % 2)})`; c.fillRect(0, 140 + i * 170, SW, 60); }
-    const fill = eio(seg(t, Wd('v07', 4) - .1, Wd('v07', 4) + .5));
+    const fill = eio(seg(t, Wf('v07', '꽉') - .1, Wf('v07', '꽉') + .5));
     const ex = lerp(190, 64, fill), ey = lerp(340, 190, fill), ew = lerp(356, 608, fill), eh = lerp(480, 830, fill);
     c.save(); c.translate(ex + ew / 2, ey + eh / 2); c.rotate(lerp(-.08, 0, fill)); envelope(c, -ew / 2, -eh / 2, ew, eh, { blur: 1.1 }); c.restore();
     if (fill > .6) { c.strokeStyle = C.spark; c.lineWidth = 8; const k = 60, b = [40, 170, SW - 40, 1120]; c.globalAlpha = ss(seg(fill, .6, 1));
@@ -437,24 +441,24 @@ function scrApp(c, t) {
 // F: a memo with the four steps
 const TILES = [['앱 열기', 'spark'], ['찰칵 찍기', 'cam'], ['마이크로 묻기', 'mic'], ['끝! 답 듣기', 'check']], TILEY = [330, 560, 790, 1020];
 function scrMemo(c, t) {
-  c.fillStyle = '#FFF9EC'; c.fillRect(0, 0, SW, SH); statusBar(c);
+  c.fillStyle = '#FFF9E0'; c.fillRect(0, 0, SW, SH); statusBar(c);
   txt(c, '메모', 40, 110, F(700, 36), C.grey);
   txt(c, '약 봉투 읽는 법', 40, 210, F(900, 62), C.ink);
-  const hit = [Wd('v11', 0), Wd('v11', 2), Wd('v11', 3), Wd('v11', 4)];
+  const hit = [Wf('v11', '앱'), Wf('v11', '찰'), Wf('v11', '마이'), Wf('v11', '끝')];
   for (let i = 0; i < 4; i++) {
     const y = TILEY[i], on = t > hit[i] - .02, pop = on ? 1 + .05 * Math.sin(Math.PI * seg(t, hit[i], hit[i] + .25)) : 1;
     const a = ss(seg(t, 41.7 + i * .12, 41.95 + i * .12));
     c.save(); c.globalAlpha = a; c.translate(SW / 2, y + 100); c.scale(pop, pop); c.translate(-SW / 2, -(y + 100));
     shadow(c, 18, 6, .1); rr(c, 48, y, 640, 200, 36, on ? '#fff' : '#FFFDF7'); noShadow(c);
-    rr(c, 48, y, 640, 200, 36, null, on ? C.mas : '#EADFC8', on ? 7 : 3);
-    circ(c, 140, y + 100, 56, on ? C.mas : '#F1E6D0'); glyph(c, TILES[i][1], 140, y + 100, 64, on ? '#fff' : C.grey);
+    rr(c, 48, y, 640, 200, 36, null, on ? C.ink : '#EADFC8', on ? 7 : 3);
+    circ(c, 140, y + 100, 56, on ? C.yel : '#F1E6D0'); glyph(c, TILES[i][1], 140, y + 100, 64, on ? C.ink : C.grey);
     txt(c, ['①', '②', '③', '④'][i] + ' ' + TILES[i][0], 222, y + 102, F(900, 50), C.ink);
     c.restore();
   }
 }
 // G: lock screen with tomorrow's reminder
 function scrLock(c, t) {
-  const g = c.createLinearGradient(0, 0, 0, SH); g.addColorStop(0, '#FFD9B8'); g.addColorStop(1, '#C9B8F2'); c.fillStyle = g; c.fillRect(0, 0, SW, SH); statusBar(c);
+  const g = c.createLinearGradient(0, 0, 0, SH); g.addColorStop(0, '#FF9A3D'); g.addColorStop(1, '#B44CFF'); c.fillStyle = g; c.fillRect(0, 0, SW, SH); statusBar(c);
   txt(c, '10:24', SW / 2, 290, F(700, 170), '#fff', 'center'); txt(c, '11월 18일 화요일', SW / 2, 410, F(700, 40), '#fff', 'center');
   const u = back(seg(t, 47.75, 48.15));
   c.save(); c.translate(SW / 2, 635); c.scale(lerp(.8, 1, u), lerp(.8, 1, u)); c.globalAlpha = clamp(u); c.translate(-SW / 2, -635);
@@ -468,7 +472,7 @@ function scrLock(c, t) {
 // H: the end card — subscribe and share
 function scrEnd(c, t) {
   c.fillStyle = '#FFFFFF'; c.fillRect(0, 0, SW, SH); statusBar(c);
-  circ(c, SW / 2, 380, 120, '#FFF1E6'); drawMascot(c, SW / 2, 446, { eyes: 'happy', arms: 'up', scale: 1.1 });
+  circ(c, SW / 2, 380, 120, '#FFE8F2'); drawMascot(c, SW / 2, 446, { eyes: 'happy', arms: 'up', scale: 1.1 });
   txt(c, '쉬운 휴대폰 꿀팁', SW / 2, 556, F(900, 58), C.ink, 'center');
   const subT = Wd('v13', 0) + .25, done = t > subT;
   const press = t > subT - .08 && t < subT + .12 ? .94 : 1;
@@ -477,7 +481,7 @@ function scrEnd(c, t) {
   if (done) glyph(c, 'bell', 96, 0, 44, C.ink);
   c.restore();
   // share sheet
-  const sh0 = Wd('v13', 4) - .3;
+  const sh0 = Wf('v13', '부모') - .3;
   if (t > sh0) {
     const u = eo(seg(t, sh0, sh0 + .35)), y0 = lerp(SH, 900, u);
     shadow(c, 30, -6, .14); rr(c, 0, y0, SW, SH - y0 + 40, [40, 40, 0, 0], '#fff'); noShadow(c);
@@ -514,7 +518,7 @@ function drawScreen(c, t) {
 // ---------- the touch dot (the user) ----------
 let TAPS = [];
 function buildTaps() {
-  TAPS = [[Wd('v06', 4), 540, 1187], [VO.v07 + .05, 262, 1432], [SHUT(), 540, 1412], [VO.v08 + .05, 818, 1432], [31.95, 540, 1252],
+  TAPS = [[Wf('v06', 'AI'), 540, 1187], [VO.v07 + .05, 262, 1432], [SHUT(), 540, 1412], [VO.v08 + .05, 818, 1432], [31.95, 540, 1252],
     [36.75, 818, 1432], [37.45, 540, 1252], [Wd('v13', 0) + .25, 540, 902], [57.3, 322, 1262]];
 }
 function drawTouch(c, t) {
@@ -544,26 +548,44 @@ function stepPill(c, t) {
   for (const [a, b, n, s] of STEPS) {
     const u = ss(seg(t, a, a + .3)) * (1 - ss(seg(t, b - .2, b))); if (u <= 0) continue;
     c.font = F(900, 50); const w = c.measureText(s).width + 160, x = W / 2 - w / 2, y = 34 - (1 - u) * 40;
-    c.save(); c.globalAlpha = u; shadow(c, 20, 6, .15); rr(c, x, y, w, 96, 48, 'rgba(255,255,255,.94)'); noShadow(c);
-    circ(c, x + 56, y + 48, 32, C.blue); txt(c, n, x + 56, y + 50, F(900, 40), '#fff', 'center'); txt(c, s, x + 100, y + 50, F(900, 50), C.ink);
+    c.save(); c.globalAlpha = u; shadow(c, 20, 6, .15); rr(c, x, y, w, 96, 48, C.yel); noShadow(c); rr(c, x, y, w, 96, 48, null, C.ink, 5);
+    circ(c, x + 56, y + 48, 32, C.ink); txt(c, n, x + 56, y + 50, F(900, 40), C.yel, 'center'); txt(c, s, x + 100, y + 50, F(900, 50), C.ink);
     c.restore();
     REG.push({ id: 'step', text: n + ' ' + s, x0: x, y0: y, x1: x + w, y1: y + 96 });
   }
 }
-const CAPS = [[.25, 2.75, '약 봉투 글씨,\n보이세요?'], [2.75, 5.3, '이제 돋보기\n찾지 마세요.'], [5.3, 7.3, '휴대폰이 읽어 줘요!'], [7.3, 9.06, '약 봉투가 서너 개면,'],
-  [9.06, 11.85, '아침 약인지 저녁 약인지\n헷갈리죠.'], [11.85, 14.55, '자식한테 매번\n묻기도 미안하고요.'], [14.55, 18.35, '이제 글자 칠 필요 없이,\n말로 물어보세요.'],
-  [18.35, 22.25, '먼저 챗GPT나 제미나이 같은\nAI 앱을 여세요.'], [22.25, 26.85, '카메라를 누르고,\n약 봉투를 꽉 차게 대고, 찰칵!'], [26.85, 30.35, '마이크를 누르고,\n말하듯이 물어보세요.'],
-  [30.35, 32.4, '“이 약 어떻게 먹어?”'], [33.15, 36.3, '그러면 크고 쉬운 말로\n알려 줘요.'], [36.35, 39.2, '궁금한 건 또 물어보세요.'], [39.2, 41.75, '몇 번을 물어도 괜찮아요.'],
-  [41.75, 47.75, '앱 열고, 찰칵, 마이크.\n끝! 쉽죠?'], [47.75, 50.85, '내일 병원 가시면\n꼭 써 보세요.'], [50.85, 53.15, '충분히 하실 수 있어요!'],
-  [53.15, 56.25, '구독하시면 꿀팁\n계속 알려 드려요.'], [56.25, 59.7, '부모님께도\n꼭 보내 드리세요!']];
-window.CAPS = CAPS;
+// captions: one per line of voice, split where a second thought starts; *…* is highlighted
+const CAPDEF = [['v01', '약 봉투 글씨,\n*보이세요?*'], ['v02', '이제 *돋보기*\n필요 없어요.', '휴대', '휴대폰이\n*대신 읽어 줘요!*'],
+  ['v03', '약 봉투가 여러 개면,\n아침 약인지', '저녁', '저녁 약인지\n*헷갈리잖아요.*'], ['v04', '자식한테 매번\n묻기도 *미안하고요.*'],
+  ['v05', '이제는요, 글자 칠 필요 없이\n*말로* 물어보세요.'], ['v06', '먼저 챗GPT나 제미나이 같은\n*AI 앱*을 열어 주세요.'],
+  ['v07', '카메라 누르고,\n약 봉투를 꽉 차게, *찰칵!*'], ['v08', '그다음 *마이크* 누르고,\n말하듯이 물어보세요.'], ['q01', '*“이 약 어떻게 먹어?”*'],
+  ['v09', '그러면 이렇게\n*크고 쉬운 말*로 딱 알려 줘요.'], ['v10', '궁금한 건 *또* 물어보세요.', '몇', '몇 번을 물어봐도\n*괜찮아요.*'],
+  ['v11', '*앱*을 열고,\n*찰칵* 찍고,', '마이', '*마이크*로 물어보면 *끝!*\n진짜 쉽죠?'], ['v12', '내일 병원 가시면\n꼭 한번 *써 보세요.*', '충분', '*충분히* 하실 수 있어요!'],
+  ['v13', '*구독*하시면 이런 꿀팁\n계속 알려 드릴게요.', '부모', '*부모님께도*\n꼭 보내 드리세요!']];
+let CAPS = [];
+function buildCaps() {
+  const ids = Object.keys(VO), end = { q01: 32.4, v09: 36.3, v13: 59.7 };
+  for (const [id, a, pre, b] of CAPDEF) {
+    const i = ids.indexOf(id), t0 = VO[id] - .05, t1 = end[id] ?? (VO[ids[i + 1]] - .05);
+    if (pre) { const m = Wf(id, pre) - .05; CAPS.push([t0, m, a], [m, t1, b]); } else CAPS.push([t0, t1, a]);
+  }
+  window.CAPS = CAPS;
+}
+function richLine(c, l, x, y, size) {   // centred text with *highlighted* runs
+  const runs = l.split('*').map((r, i) => [r, i % 2 === 1]); c.font = F(900, size);
+  const w = runs.reduce((a, [r]) => a + c.measureText(r).width, 0); let cx = x - w / 2;
+  for (const [r, hl] of runs) { txt(c, r, cx, y, F(900, size), hl ? C.hl : '#fff'); cx += c.measureText(r).width; }
+  return w;
+}
 function caption(c, t) {
   for (const [a, b, s] of CAPS) {
     if (t < a || t >= b) continue;
-    const u = ss(seg(t, a, a + .12)), L = s.split('\n'); c.font = F(900, 56);
-    const w = Math.max(...L.map(l => c.measureText(l).width)) + 80, h = L.length * 72 + 44, y = 1745 - h / 2;
-    c.save(); c.globalAlpha = u; shadow(c, 24, 8, .2); rr(c, W / 2 - w / 2, y, w, h, 36, 'rgba(255,255,255,.95)'); noShadow(c);
-    L.forEach((l, i) => txt(c, l, W / 2, y + 22 + 36 + i * 72, F(900, 56), s.startsWith('“') ? C.blue : C.ink, 'center'));
+    const u = seg(t, a, a + .15), L = s.split('\n'); c.font = F(900, 60);
+    const w = Math.max(...L.map(l => c.measureText(l.replace(/\*/g, '')).width)) + 84, h = L.length * 78 + 44, y = 1745 - h / 2;
+    const sc = lerp(.85, 1, back(u));
+    c.save(); c.globalAlpha = clamp(u * 3); c.translate(W / 2, y + h / 2); c.scale(sc, sc); c.translate(-W / 2, -(y + h / 2));
+    shadow(c, 24, 8, .35); rr(c, W / 2 - w / 2, y, w, h, 30, 'rgba(14,14,20,.92)'); noShadow(c);
+    L.forEach((l, i) => richLine(c, l, W / 2, y + 22 + 39 + i * 78, 60));
     c.restore();
   }
 }
@@ -593,8 +615,9 @@ function regTexts(t, K) {
 
 // ---------- frame ----------
 function wallpaper(c) {
-  const g = c.createLinearGradient(0, 0, W, H); g.addColorStop(0, '#FFE6CF'); g.addColorStop(.55, '#FDE7EF'); g.addColorStop(1, '#E6E0FA'); c.fillStyle = g; c.fillRect(0, 0, W, H);
-  c.fillStyle = 'rgba(255,255,255,.35)'; for (let i = 0; i < 26; i++) { const x = hash(i) * W, y = hash(i + 50) * H, r = 20 + 60 * hash(i + 99); c.beginPath(); c.arc(x, y, r, 0, 7); c.fill(); }
+  const g = c.createLinearGradient(0, 0, W * .6, H); g.addColorStop(0, '#5B21FF'); g.addColorStop(.5, '#FF2D87'); g.addColorStop(1, '#FF8A00'); c.fillStyle = g; c.fillRect(0, 0, W, H);
+  c.save(); c.globalAlpha = .12; c.fillStyle = '#fff'; c.rotate(-.35); for (let i = -10; i < 20; i++) c.fillRect(i * 140, -400, 46, H * 2); c.restore();
+  for (let i = 0; i < 14; i++) { const x = hash(i) * W, y = hash(i + 50) * H, r = 30 + 90 * hash(i + 99); c.strokeStyle = i % 3 ? 'rgba(255,255,255,.22)' : 'rgba(255,225,0,.45)'; c.lineWidth = 10; c.beginPath(); c.arc(x, y, r, 0, 7); c.stroke(); }
 }
 let WALL, ZOOM = 1;
 function render(t) {
@@ -635,10 +658,11 @@ function buildEvents() {
   E.push({ t: 27.1, type: 'micon' }); E.push({ t: 31.95, type: 'micoff' }); E.push({ t: 36.85, type: 'micon' }); E.push({ t: 37.45, type: 'micoff' });
   E.push({ t: 32.0, type: 'whoosh' }); E.push({ t: 32.95, type: 'chime' }); E.push({ t: 38.3, type: 'chime' }); E.push({ t: 37.45, type: 'whoosh' });
   E.push({ t: 32.0, type: 'drop' }); E.push({ t: 32.9, type: 'back' });
-  [Wd('v11', 0), Wd('v11', 2), Wd('v11', 3), Wd('v11', 4)].forEach((t, i) => E.push({ t, type: 'hop', n: i }));
+  [Wf('v11', '앱'), Wf('v11', '찰'), Wf('v11', '마이'), Wf('v11', '끝')].forEach((t, i) => E.push({ t, type: 'hop', n: i }));
   E.push({ t: 47.75, type: 'notif' }); E.push({ t: 40.24, type: 'heart' }); E.push({ t: 50.92, type: 'heart' }); E.push({ t: 53.6, type: 'sparkle' });
-  E.push({ t: Wd('v13', 4) - .3, type: 'open' }); E.push({ t: 58.6, type: 'done' });
+  E.push({ t: Wf('v13', '부모') - .3, type: 'open' }); E.push({ t: 58.6, type: 'done' });
   E.push({ t: 18.2, type: 'chapter' }); E.push({ t: 22.2, type: 'chapter' }); E.push({ t: 26.7, type: 'chapter' }); E.push({ t: 32.0, type: 'chapter' });
+  for (const [a, b, x] of CAPS) E.push({ t: a, type: 'cap', t1: b, text: x.replace(/\*/g, '') });
   window.EV = E.sort((a, b) => a.t - b.t);
 }
 
@@ -646,6 +670,8 @@ function buildEvents() {
   WORDS = await (await fetch('voices/words.json')).json();
   await Promise.all([document.fonts.load(F(900, 56), '가'), document.fonts.load(F(700, 40), '가'), document.fonts.load(F(500, 40), '가')]);
   WALL = document.createElement('canvas'); WALL.width = W; WALL.height = H; wallpaper(WALL.getContext('2d'));
-  buildMascot(); buildTaps(); buildEvents();
+  buildMascot(); buildTaps(); buildCaps();
+  BUMPS = [VO.v01 + .2, Wf('v02', '휴대'), 12.5, SHUT(), 32.95, Wf('v11', '앱'), Wf('v11', '찰'), Wf('v11', '마이'), Wf('v11', '끝'), Wf('v12', '충분'), Wf('v13', '구독') + .25];
+  buildEvents();
   window.READY = true;
 })();
